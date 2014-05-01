@@ -14,9 +14,9 @@ module OmniFocus::Jira
     config = YAML.load(File.read(path)) rescue nil
     
     unless config then
-      config = { :username           => "nick.crown", 
+      config = { :username           => "john.doe", 
                  :password           => "123",
-                 :site               => 'https://droidcloud.atlassian.net',        
+                 :site               => 'https://company.atlassian.net',        
                  :rest_base_path     => '/rest/api/2',
                  :context_path       => '',
                  :auth_type          => :basic,
