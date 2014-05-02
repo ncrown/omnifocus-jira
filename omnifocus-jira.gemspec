@@ -16,5 +16,5 @@ Gem::Specification.new do |gem|
   gem.version       = OmniFocus::Jira::VERSION
 
   gem.add_dependency "omnifocus", "~> 2.1"
-  gem.add_dependency "jira-ruby", "~> 0.1.9"
+  gem.add_runtime_dependency 'jira-ruby', '~> 0.1', '>= 0.1.9'
 end
