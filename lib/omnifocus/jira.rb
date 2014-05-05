@@ -6,7 +6,7 @@ require "json"
 require "yaml"
 
 module OmniFocus::Jira  
-  PREFIX  = "JIRA"
+  PREFIX  = "PMM"
   FOLDER  = "JIRA"
   
   def load_or_create_jira_config
@@ -47,17 +47,19 @@ module OmniFocus::Jira
     client.Issue.jql(config[:jql_query]).each do |issue|      
       # 2. process jira issues
       #puts "#{issue.id} - #{issue.fields['summary']}"
+      #component_name = issue.fields['components'][0]['name']
       project_name = issue.fields['project']['name']
-      ticket_id = issue.key
-      ticket_summary = issue.fields['summary']
+      #project_name = "#{project_name} - #{component_name}"
+      issue_key = issue.key
+      issue_summary = issue.fields['summary']
       site = config[:site]
-      url = "#{site}/browse/#{ticket_id}"
+      url = "#{site}/browse/#{issue_key}"      
 
-      if existing[ticket_id]
-        project = existing[ticket_id]
-        bug_db[project][ticket_id] = true
+      if existing[issue_key]
+        project = existing[issue_key]
+        bug_db[project][issue_key] = true
       else
-        bug_db[project_name][ticket_id] = [ticket_summary, url]
+        bug_db[project_name][issue_key] = ["#{issue_key}: #{issue_summary}", url]
       end
     end
   end
